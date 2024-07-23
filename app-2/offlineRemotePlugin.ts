@@ -23,20 +23,20 @@ const getModule = (pg, from) => {
 const offlineRemotePlugin: () => FederationRuntimePlugin = function () {
   return {
     name: 'offline-remote-plugin',
-    errorLoadRemote(args) {
-      const { id, from } = args;
+    // errorLoadRemote(args) {
+    //   const { id, from } = args;
 
-      const pg = function () {
-        console.error(id, 'offline', 'Ошибка загрузки модуля');
-        return getErrorMessage(id, 'Ошибка загрузки модуля');
-      };
+    //   const pg = function () {
+    //     console.error(id, 'offline', 'Ошибка загрузки модуля');
+    //     return getErrorMessage(id, 'Ошибка загрузки модуля');
+    //   };
 
-      if (args.lifecycle === 'onLoad') {
-        return getModule(pg, from);
-      } else if (args.lifecycle === 'beforeRequest') {
-        return args;
-      }
-    },
+    //   if (args.lifecycle === 'onLoad') {
+    //     return getModule(pg, from);
+    //   } else if (args.lifecycle === 'beforeRequest') {
+    //     return args;
+    //   }
+    // },
     beforeInit(args) {
       const onlineRemotes: any[] = [];
 

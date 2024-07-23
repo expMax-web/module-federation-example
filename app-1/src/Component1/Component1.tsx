@@ -13,8 +13,6 @@ const Component1: FC<Component1Props> = ({ title }) => {
     query: GET_CHARACTERS,
   });
 
-  console.log({ title });
-
   if (fetching) {
     return <p>Loading...</p>;
   }

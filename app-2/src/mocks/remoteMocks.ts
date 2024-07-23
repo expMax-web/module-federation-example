@@ -3,13 +3,9 @@ import { handlers } from './handlers';
 import { GraphQLHandler } from 'msw';
 
 export const remoteMocks = (async () => {
-  console.log(1);
+  const result = await import('app1/handlers');
 
-  // const result = await import('remote/handlers');
-
-  console.log(2);
-
-  const remoteHandlers: GraphQLHandler[] = [];
+  const remoteHandlers = result.default as unknown as GraphQLHandler[];
 
   return setupWorker(...handlers, ...remoteHandlers);
 })();
