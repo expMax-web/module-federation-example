@@ -22,10 +22,13 @@ export default defineConfig(() => ({
           name: 'app2',
           filename: 'app2.js',
           remotes: {
-            app1: 'app1@http://localhost:3001/app1.js',
+            app1: 'app1@http://localhost:3001/mf-manifest.json',
           },
           shared: ['react', 'react-dom', 'urql', 'graphql'],
-          // runtimePlugins: [require.resolve('./offlineRemotePlugin.ts')],
+          runtimePlugins: [
+            require.resolve('./offlineRemotePlugin.ts'),
+            require.resolve('./shared-strategy.ts'),
+          ],
         }),
       ]);
     },
