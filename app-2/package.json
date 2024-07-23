@@ -1,0 +1,44 @@
+{
+  "name": "app-2",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "rsbuild build",
+    "start": "rsbuild dev --open",
+    "start:mocks": "cross-env MOCKS=true rsbuild dev --open ",
+    "start:remoteMocks": "cross-env MOCKS=true REMOTE_MOCKS=true rsbuild dev --open ",
+    "format": "prettier --write .",
+    "lint": "eslint .",
+    "preview": "rsbuild preview"
+  },
+  "dependencies": {
+    "@module-federation/enhanced": "^0.2.8",
+    "@urql/exchange-context": "^0.3.0",
+    "graphql": "^16.9.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "urql": "^4.1.0"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^1.1.0",
+    "@eslint/js": "^8.57.0",
+    "@rsbuild/core": "1.0.1-beta.1",
+    "@rsbuild/plugin-react": "1.0.1-beta.1",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.3",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "globals": "^15.8.0",
+    "msw": "^2.3.1",
+    "prettier": "^3.3.2",
+    "typescript": "^5.5.2",
+    "typescript-eslint": "^7.16.0"
+  },
+  "msw": {
+    "workerDirectory": [
+      "static"
+    ]
+  }
+}
