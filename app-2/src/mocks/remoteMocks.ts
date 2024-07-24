@@ -3,10 +3,15 @@ import { handlers } from './handlers';
 import { GraphQLHandler } from 'msw';
 
 export const remoteMocks = (async () => {
-  const result = await import('app1/handlers');
+  try {
+    const result = await import('app1/handlers');
 
-  // Сделать проверку ответа, если модуль оффлайн
-  const remoteHandlers = result.default as unknown as GraphQLHandler[];
+    const remoteHandlers = result.default as unknown as GraphQLHandler[];
 
-  return setupWorker(...handlers);
+    return setupWorker(...handlers, ...remoteHandlers);
+  } catch {
+    console.error('Не удалось подключить моки из удаленного МФ');
+
+    return setupWorker(...handlers);
+  }
 })();
