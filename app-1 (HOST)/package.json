@@ -12,8 +12,6 @@
     "preview": "rsbuild preview"
   },
   "dependencies": {
-    "@linaria/core": "^6.2.0",
-    "@linaria/react": "^6.2.1",
     "@module-federation/enhanced": "^0.2.6",
     "@urql/exchange-context": "^0.3.0",
     "@wyw-in-js/babel-preset": "^0.5.4",
@@ -32,6 +30,8 @@
     "@types/react-dom": "^18.3.0",
     "@wyw-in-js/vite": "^0.5.4",
     "@wyw-in-js/webpack-loader": "^0.5.4",
+    "@linaria/core": "^6.2.0",
+    "@linaria/react": "^6.2.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.3",

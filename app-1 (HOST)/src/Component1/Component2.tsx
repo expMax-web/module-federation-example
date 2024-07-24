@@ -3,18 +3,13 @@ import { GET_CHARACTERS } from './query';
 import { useQuery } from 'urql';
 import { Title } from './styled';
 
-interface Component1Props {
-  title: string;
-  testId?: string;
-}
-
-const Component1: FC<Component1Props> = ({ title }) => {
+export const Component1: FC = () => {
   const [{ data, fetching, error }] = useQuery({
     query: GET_CHARACTERS,
   });
 
   if (fetching) {
-    return <p>Loading...</p>;
+    return <p>Loading..</p>;
   }
 
   if (error) {
@@ -23,12 +18,10 @@ const Component1: FC<Component1Props> = ({ title }) => {
 
   return (
     <Title>
-      (App-11234)
+      (App-1)
       {data.characters.results.map((item: any, index: number) => {
         return <div key={`${item}_${index}`}>{item.name}</div>;
       })}
     </Title>
   );
 };
-
-export default Component1;

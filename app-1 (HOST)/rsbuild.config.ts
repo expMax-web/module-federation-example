@@ -3,6 +3,7 @@ import { pluginReact } from '@rsbuild/plugin-react';
 import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
 import { pluginStyledComponents } from '@rsbuild/plugin-styled-components';
 
+// Для локальной разработки без Module Federation (Ускоряет работу)
 const withMF = JSON.stringify(process.env.WITH_MF);
 
 export default defineConfig(() => ({
@@ -10,6 +11,7 @@ export default defineConfig(() => ({
   source: {
     define: {
       'process.env.MOCKS': JSON.stringify(process.env.MOCKS),
+      'process.env.REMOTE_MOCKS': JSON.stringify(process.env.REMOTE_MOCKS),
     },
   },
   server: { port: 3001 },
@@ -28,11 +30,14 @@ export default defineConfig(() => ({
               new ModuleFederationPlugin({
                 name: 'app1',
                 filename: 'app1.js',
-                exposes: {
-                  './Component1': './src/Component1/Component1.tsx',
-                  './handlers': './src/mocks/handlers.ts',
+                remotes: {
+                  app2: 'app2@http://localhost:3002/mf-manifest.json',
                 },
                 shared: ['react', 'react-dom', 'urql', 'graphql'],
+                runtimePlugins: [
+                  require.resolve('./offlineRemotePlugin.ts'),
+                  require.resolve('./shared-strategy.ts'),
+                ],
               }),
             ]
           : [],
@@ -52,7 +57,5 @@ export default defineConfig(() => ({
         },
       ]);
     },
-    webpack: {},
-    styleLoader: {},
   },
 }));

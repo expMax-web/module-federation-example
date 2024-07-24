@@ -26,6 +26,8 @@
     "@rsbuild/plugin-react": "1.0.1-beta.1",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "@linaria/core": "^6.2.0",
+    "@linaria/react": "^6.2.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.3",

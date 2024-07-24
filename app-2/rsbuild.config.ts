@@ -2,6 +2,9 @@ import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
 import { defineConfig } from '@rsbuild/core';
 import { pluginReact } from '@rsbuild/plugin-react';
 
+// Для локальной разработки без Module Federation (Ускоряет работу)
+const withMF = JSON.stringify(process.env.WITH_MF);
+
 export default defineConfig(() => ({
   plugins: [pluginReact()],
   source: {
@@ -10,26 +13,48 @@ export default defineConfig(() => ({
       'process.env.REMOTE_MOCKS': JSON.stringify(process.env.REMOTE_MOCKS),
     },
   },
+  server: { port: 3002 },
   output: {
     copy: [{ from: './static' }],
   },
-  server: { port: 3002 },
+  dev: {
+    assetPrefix: 'http://localhost:3001',
+  },
   tools: {
-    rspack: (config, { appendPlugins }) => {
+    rspack: (config, { appendPlugins, addRules }) => {
       config.output!.uniqueName = 'app2';
-      appendPlugins([
-        new ModuleFederationPlugin({
-          name: 'app2',
-          filename: 'app2.js',
-          remotes: {
-            app1: 'app1@http://localhost:3001/mf-manifest.json',
-          },
-          shared: ['react', 'react-dom', 'urql', 'graphql'],
-          runtimePlugins: [
-            require.resolve('./offlineRemotePlugin.ts'),
-            require.resolve('./shared-strategy.ts'),
+      appendPlugins(
+        withMF
+          ? [
+              new ModuleFederationPlugin({
+                name: 'app2',
+                filename: 'app2.js',
+                exposes: {
+                  './Component2': './src/Component1/Component2.tsx',
+                  './handlers': './src/mocks/handlers.ts',
+                },
+                shared: ['react', 'react-dom', 'urql', 'graphql'],
+                runtimePlugins: [
+                  require.resolve('./offlineRemotePlugin.ts'),
+                  require.resolve('./shared-strategy.ts'),
+                ],
+              }),
+            ]
+          : [],
+      );
+
+      addRules([
+        {
+          test: /styled\.ts$/,
+          use: [
+            {
+              loader: '@wyw-in-js/webpack-loader',
+              options: {
+                sourceMap: process.env.NODE_ENV !== 'production',
+              },
+            },
           ],
-        }),
+        },
       ]);
     },
   },
