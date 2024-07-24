@@ -5,8 +5,9 @@
   "scripts": {
     "build": "rsbuild build",
     "start": "rsbuild dev --open",
-    "start:mocks": "cross-env MOCKS=true rsbuild dev --open ",
-    "start:remoteMocks": "cross-env MOCKS=true REMOTE_MOCKS=true rsbuild dev --open ",
+    "start:mocks": "cross-env MOCKS=true  rsbuild dev --open",
+    "start:localMocks": "cross-env MOCKS=true WITHOUT_MF=true rsbuild dev --open",
+    "start:remoteMocks": "cross-env MOCKS=true REMOTE_MOCKS=true rsbuild dev --open",
     "format": "prettier --write .",
     "lint": "eslint .",
     "preview": "rsbuild preview"
@@ -28,6 +29,7 @@
     "@types/react-dom": "^18.3.0",
     "@linaria/core": "^6.2.0",
     "@linaria/react": "^6.2.1",
+    "@wyw-in-js/webpack-loader": "^0.5.4",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.3",

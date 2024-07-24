@@ -4,7 +4,7 @@ import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
 import { pluginStyledComponents } from '@rsbuild/plugin-styled-components';
 
 // Для локальной разработки без Module Federation (Ускоряет работу)
-const withMF = JSON.stringify(process.env.WITH_MF);
+const withoutMF = JSON.stringify(process.env.WITHOUT_MF);
 
 export default defineConfig(() => ({
   plugins: [pluginReact(), pluginStyledComponents()],
@@ -25,8 +25,9 @@ export default defineConfig(() => ({
     rspack: (config, { appendPlugins, addRules }) => {
       config.output!.uniqueName = 'app1';
       appendPlugins(
-        withMF
-          ? [
+        withoutMF
+          ? []
+          : [
               new ModuleFederationPlugin({
                 name: 'app1',
                 filename: 'app1.js',
@@ -39,8 +40,7 @@ export default defineConfig(() => ({
                   require.resolve('./shared-strategy.ts'),
                 ],
               }),
-            ]
-          : [],
+            ],
       );
 
       addRules([
