@@ -23,7 +23,7 @@ export class ErrorBoundary extends Component<Props, State> {
     const { children } = this.props;
 
     if (error) {
-      return <div>Произошла ошибка при подгрузке модуля</div>;
+      return <div>Произошла ошибка при подгрузке модуля (ErrorBoundary)</div>;
     }
 
     return children;
