@@ -1,12 +1,27 @@
 import { setupWorker } from 'msw/browser';
+
 import handlers from './handlers';
-import { GraphQLHandler } from 'msw';
 
 export const remoteMocks = (async () => {
   try {
-    const result = await import('app2/handlers');
+    // Пока руками, нужно подумать как тянуть из конфига rsbuild, либо уже из envitonment.json
+    const result = await Promise.allSettled([
+      import('app2/handlers'),
+      import('app3/handlers'),
+    ]);
 
-    const remoteHandlers = result.default as unknown as GraphQLHandler[];
+    const remoteHandlers = result
+      .map(
+        (item: any) =>
+          item &&
+          'value' in item &&
+          'handlers' in item.value &&
+          item?.value?.handlers,
+      )
+      .flat(1)
+      .filter(Boolean);
+
+    console.log(remoteHandlers);
 
     return setupWorker(...handlers, ...remoteHandlers);
   } catch {
