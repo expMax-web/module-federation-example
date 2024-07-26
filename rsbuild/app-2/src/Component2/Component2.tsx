@@ -3,12 +3,12 @@ import { GET_CHARACTERS } from './query';
 import { useQuery } from 'urql';
 import { Title } from './styled';
 
-interface Component1Props {
+interface Component2Props {
   title: string;
   testId?: string;
 }
 
-const Component2: FC<Component1Props> = ({ title }) => {
+const Component2: FC<Component2Props> = ({ title, testId }) => {
   const [{ data, fetching, error }] = useQuery({
     query: GET_CHARACTERS,
   });

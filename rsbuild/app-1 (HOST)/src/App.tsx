@@ -1,9 +1,9 @@
 import { cacheExchange, Client, fetchExchange, Provider } from 'urql';
 import './App.css';
 import { getOpNameExchange } from './api/getOpNameExchange';
+import { RemoteComponent2 } from './RemoteComponent2';
 import { Component1 } from './Component1/Component2';
-import RemoteComponent2 from './RemoteComponent2';
-import RemoteComponent3 from './RemoteComponent3';
+import { RemoteComponent3 } from './RemoteComponent3';
 
 const opNameExchange = getOpNameExchange();
 

@@ -8,8 +8,9 @@ const offlineRemotePlugin: () => FederationRuntimePlugin = function () {
 
     errorLoadRemote(args) {
       if (args.lifecycle === 'onLoad') {
-        // подумать еще
-        return () => import('./src/Error');
+        return () => {
+          console.error(`Ошибка загрузки модуля ${args.id}`);
+        };
       } else {
         return args;
       }

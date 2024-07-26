@@ -1,13 +1,14 @@
 import { FC, lazy, Suspense } from 'react';
+
 import { ErrorBoundary } from './ErrorBoundary';
 
-const RemoteComponent = lazy(() => import('app2/Component2'));
+const RemoteComponent = lazy(() => import('app3/Component3'));
 
-export const RemoteComponent2: FC = () => {
+export const RemoteComponent3: FC = () => {
   return (
     <ErrorBoundary>
       <Suspense fallback={<div>Загружаю</div>}>
-        <RemoteComponent title="" />
+        <RemoteComponent title={''} />
       </Suspense>
     </ErrorBoundary>
   );
