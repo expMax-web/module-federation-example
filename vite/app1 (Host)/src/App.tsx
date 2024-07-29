@@ -1,32 +1,38 @@
-import { useState } from "react";
+import { cacheExchange, Client, fetchExchange, Provider } from "urql";
 import "./App.css";
-import { RemoteComponent2 } from "./RemoteComponent2";
+import { getOpNameExchange } from "./api/getOpNameExchange";
+import { Component1 } from "./Component1/Component1";
 
-function App() {
-  const [count, setCount] = useState(0);
+const opNameExchange = getOpNameExchange();
+
+const client = new Client({
+  url: "https://rickandmortyapi.com/graphql",
+  exchanges: [cacheExchange, fetchExchange, opNameExchange],
+});
+
+const App = () => {
+  // window.addEventListener('beforeunload', (event) => {
+  //   debugger;
+  //   event.preventDefault();
+  //   event.returnValue = '';
+  // });
 
   return (
-    <>
-      <div style={{ backgroundColor: "#eb926f" }}>
-        <h1>App-1 (Host)</h1>
-        <div className="card">
-          <button onClick={() => setCount((count) => count + 1)}>
-            count is {count}
-          </button>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test HMR
-          </p>
-        </div>
-        <p className="read-the-docs">
-          Click on the Vite and React logos to learn more
-        </p>
+    <Provider value={client}>
+      <div style={{ display: "flex", gap: "10px" }}>
+        Local:
+        <Component1 />
       </div>
-
-      <div>
+      {/* <div style={{ display: "flex", gap: "10px" }}>
+        Remote2:
         <RemoteComponent2 />
-      </div>
-    </>
+      </div> */}
+      {/* <div style={{ display: 'flex', gap: '10px' }}>
+        Remote3:
+        <RemoteComponent3 />
+      </div> */}
+    </Provider>
   );
-}
+};
 
 export default App;

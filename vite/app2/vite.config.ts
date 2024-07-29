@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import moduleFederation from "module-federation-vite";
 import react from "@vitejs/plugin-react";
+import wyw from "@wyw-in-js/vite";
 
 import { dependencies } from "./package.json";
 
@@ -30,10 +31,15 @@ export default defineConfig({
         },
       },
     }),
+    wyw(),
   ],
   server: {
     port: 3002,
     strictPort: true,
     open: true,
+  },
+  define: {
+    "import.meta.env.MOCKS": JSON.stringify(process.env.MOCKS),
+    "import.meta.env.REMOTE_MOCKS": JSON.stringify(process.env.REMOTE_MOCKS),
   },
 });
