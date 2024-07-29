@@ -2,6 +2,7 @@ import { cacheExchange, Client, fetchExchange, Provider } from "urql";
 import "./App.css";
 import { getOpNameExchange } from "./api/getOpNameExchange";
 import { Component1 } from "./Component1/Component1";
+import { RemoteComponent2 } from "./RemoteComponent2";
 
 const opNameExchange = getOpNameExchange();
 
@@ -23,10 +24,10 @@ const App = () => {
         Local:
         <Component1 />
       </div>
-      {/* <div style={{ display: "flex", gap: "10px" }}>
+      <div style={{ display: "flex", gap: "10px" }}>
         Remote2:
         <RemoteComponent2 />
-      </div> */}
+      </div>
       {/* <div style={{ display: 'flex', gap: '10px' }}>
         Remote3:
         <RemoteComponent3 />

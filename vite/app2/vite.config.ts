@@ -14,6 +14,7 @@ export default defineConfig({
       filename: "app2.js",
       exposes: {
         Component2: "./src/exposed/Component2/Component2.tsx",
+        handlers: "./src/mocks/handlers.ts",
       },
       remotes: {},
       shared: {
@@ -28,6 +29,14 @@ export default defineConfig({
         "module-federation-vite": {
           singleton: true,
           requiredVersion: dependencies["module-federation-vite"],
+        },
+        urql: {
+          singleton: true,
+          requiredVersion: dependencies.urql,
+        },
+        graphql: {
+          singleton: true,
+          requiredVersion: dependencies.graphql,
         },
       },
     }),

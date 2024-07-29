@@ -1,22 +1,25 @@
-import { setupWorker } from 'msw/browser';
+import { setupWorker } from "msw/browser";
 
-import handlers from './handlers';
+import handlers from "./handlers";
+import { loadRemote } from "@module-federation/runtime";
 
 export const remoteMocks = (async () => {
   try {
     // Пока руками, нужно подумать как тянуть из конфига rsbuild, либо уже из envitonment.json
     const result = await Promise.allSettled([
-      import('app2/handlers'),
-      import('app3/handlers'),
+      loadRemote("app2/handlers"),
+      // import('app3/handlers'),
     ]);
+
+    console.log(result);
 
     const remoteHandlers = result
       .map(
         (item: any) =>
           item &&
-          'value' in item &&
-          'handlers' in item.value &&
-          item?.value?.handlers,
+          "value" in item &&
+          "handlers" in item.value &&
+          item?.value?.handlers
       )
       .flat(1)
       .filter(Boolean);
@@ -25,7 +28,7 @@ export const remoteMocks = (async () => {
 
     return setupWorker(...handlers, ...remoteHandlers);
   } catch {
-    console.error('Не удалось подключить моки из удаленного МФ');
+    console.error("Не удалось подключить моки из удаленного МФ");
 
     return setupWorker(...handlers);
   }

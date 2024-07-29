@@ -7,7 +7,7 @@
     "build": "vite build",
     "start": "vite",
     "start:localMocks": "cross-env MOCKS=true vite",
-    "start:remoteMocks": "cross-env REMOTE_MOCKS=true vite",
+    "start:remoteMocks": "cross-env MOCKS=true REMOTE_MOCKS=true vite",
     "preview": "vite preview"
   },
   "dependencies": {

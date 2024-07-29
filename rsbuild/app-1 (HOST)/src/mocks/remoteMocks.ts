@@ -21,8 +21,6 @@ export const remoteMocks = (async () => {
       .flat(1)
       .filter(Boolean);
 
-    console.log(remoteHandlers);
-
     return setupWorker(...handlers, ...remoteHandlers);
   } catch {
     console.error('Не удалось подключить моки из удаленного МФ');

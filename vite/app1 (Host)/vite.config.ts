@@ -14,11 +14,11 @@ export default defineConfig(({ mode }) => {
         name: "app1",
         filename: "app1.js",
         remotes: {
-          // app2: {
-          //   entry: "http://localhost:3002/app2.js",
-          //   type: "esm",
-          //   entryGlobalName: "app2",
-          // },
+          app2: {
+            entry: "http://localhost:3002/app2.js",
+            type: "esm",
+            entryGlobalName: "app2",
+          },
         },
         exposes: {},
         shared: {
@@ -33,6 +33,14 @@ export default defineConfig(({ mode }) => {
           "module-federation-vite": {
             singleton: true,
             requiredVersion: dependencies["module-federation-vite"],
+          },
+          urql: {
+            singleton: true,
+            requiredVersion: dependencies.urql,
+          },
+          graphql: {
+            singleton: true,
+            requiredVersion: dependencies.graphql,
           },
         },
       }),
