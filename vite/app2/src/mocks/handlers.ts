@@ -8,7 +8,7 @@ export const handlers = [
         characters: {
           results: [
             {
-              name: "Персонаж 444",
+              name: "Персонаж 4",
               __typename: "Character",
             },
             {

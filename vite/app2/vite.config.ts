@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import moduleFederation from "module-federation-vite";
 import react from "@vitejs/plugin-react";
 import wyw from "@wyw-in-js/vite";
+import topLevelAwait from "vite-plugin-top-level-await";
 
 import { dependencies } from "./package.json";
 
@@ -41,6 +42,7 @@ export default defineConfig({
       },
     }),
     wyw(),
+    topLevelAwait(),
   ],
   server: {
     port: 3002,
@@ -50,5 +52,10 @@ export default defineConfig({
   define: {
     "import.meta.env.MOCKS": JSON.stringify(process.env.MOCKS),
     "import.meta.env.REMOTE_MOCKS": JSON.stringify(process.env.REMOTE_MOCKS),
+  },
+  preview: {
+    port: 3002,
+    strictPort: true,
+    open: true,
   },
 });
