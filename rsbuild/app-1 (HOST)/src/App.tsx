@@ -4,6 +4,7 @@ import { getOpNameExchange } from './api/getOpNameExchange';
 import { RemoteComponent2 } from './RemoteComponent2';
 import { Component1 } from './Component1/Component2';
 import { RemoteComponent3 } from './RemoteComponent3';
+import { useInitMF } from './useInitMF';
 
 const opNameExchange = getOpNameExchange();
 
@@ -18,6 +19,18 @@ const App = () => {
   //   event.preventDefault();
   //   event.returnValue = '';
   // });
+
+  const { config, error, loading } = useInitMF();
+
+  if (error) {
+    return <>{error}</>;
+  }
+
+  if (loading) {
+    return <>Загрузка конфигурации приложения</>;
+  }
+
+  console.log(config);
 
   return (
     <Provider value={client}>

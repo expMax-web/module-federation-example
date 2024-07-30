@@ -5,8 +5,20 @@ import { pluginStyledComponents } from '@rsbuild/plugin-styled-components';
 
 import { dependencies } from './package.json';
 
+import { microservices } from './static/environment.json';
+
+const getRemotes = () => {
+  return Object.entries(microservices).reduce((acc, [name, url]) => {
+    acc[name] = `${name}@${url}`;
+
+    return acc;
+  }, {});
+};
+
 // Для локальной разработки без Module Federation (Ускоряет работу)
 const withoutMF = JSON.stringify(process.env.WITHOUT_MF);
+
+const isRuntimeRegisterEnabled = JSON.stringify(process.env.RUNTIME_REGISTER);
 
 export default defineConfig(() => ({
   plugins: [pluginReact(), pluginStyledComponents()],
@@ -14,6 +26,9 @@ export default defineConfig(() => ({
     define: {
       'process.env.MOCKS': JSON.stringify(process.env.MOCKS),
       'process.env.REMOTE_MOCKS': JSON.stringify(process.env.REMOTE_MOCKS),
+      'process.env.RUNTIME_REGISTER': JSON.stringify(
+        process.env.RUNTIME_REGISTER,
+      ),
     },
   },
   server: { port: 3001 },
@@ -37,10 +52,7 @@ export default defineConfig(() => ({
               new ModuleFederationPlugin({
                 name: 'app1',
                 filename: 'app1.js',
-                remotes: {
-                  app2: 'app2@http://localhost:3002/app2-manifest.json',
-                  app3: 'app3@http://localhost:3003/app3-manifest.json',
-                },
+                remotes: isRuntimeRegisterEnabled ? {} : getRemotes(),
                 shared: {
                   react: {
                     singleton: true,

@@ -1,7 +1,8 @@
 import { FC, lazy, Suspense } from 'react';
 import { ErrorBoundary } from './ErrorBoundary';
+import { loadRemote } from '@module-federation/enhanced/runtime';
 
-const RemoteComponent = lazy(() => import('app2/Component2'));
+const RemoteComponent = lazy(() => loadRemote('app2/Component2') as any);
 
 export const RemoteComponent2: FC = () => {
   return (

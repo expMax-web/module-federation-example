@@ -1,0 +1,6 @@
+{
+  "microservices": {
+    "app2": "http://localhost:3002/app2-manifest.json",
+    "app3": "http://localhost:3003/app3-manifest.json"
+  }
+}

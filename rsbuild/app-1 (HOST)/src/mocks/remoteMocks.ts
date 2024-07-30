@@ -1,14 +1,22 @@
 import { setupWorker } from 'msw/browser';
 
 import handlers from './handlers';
+import { loadRemote } from '@module-federation/enhanced/runtime';
+import { Config } from '../types';
 
-export const remoteMocks = (async () => {
+const isRuntimeRegisterEnabled = !!(process.env.RUNTIME_REGISTER === 'true');
+
+export const remoteMocks = async (config: Config | null) => {
   try {
-    // Пока руками, нужно подумать как тянуть из конфига rsbuild, либо уже из envitonment.json
-    const result = await Promise.allSettled([
-      import('app2/handlers'),
-      import('app3/handlers'),
-    ]);
+    const promises = Object.keys(config?.microservices || {}).map((item) => {
+      return loadRemote(`${item}/handlers`);
+    });
+
+    const result = await Promise.allSettled(
+      isRuntimeRegisterEnabled
+        ? promises
+        : [loadRemote('app2/handlers'), loadRemote('app3/handlers')],
+    );
 
     const remoteHandlers = result
       .map(
@@ -27,4 +35,4 @@ export const remoteMocks = (async () => {
 
     return setupWorker(...handlers);
   }
-})();
+};

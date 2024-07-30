@@ -8,6 +8,8 @@
     "start:mocks": "cross-env MOCKS=true rsbuild dev --open",
     "start:localMocks": "cross-env MOCKS=true WITHOUT_MF=true rsbuild dev --open",
     "start:remoteMocks": "cross-env MOCKS=true REMOTE_MOCKS=true rsbuild dev --open",
+    "start:runtimeRegister-remoteMocks": "cross-env MOCKS=true REMOTE_MOCKS=true RUNTIME_REGISTER=true rsbuild dev --open",
+    "start:runtimeRegister": "cross-env RUNTIME_REGISTER=true rsbuild dev --open",
     "format": "prettier --write .",
     "lint": "eslint .",
     "preview": "rsbuild preview"

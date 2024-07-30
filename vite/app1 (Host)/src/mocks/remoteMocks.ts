@@ -11,8 +11,6 @@ export const remoteMocks = (async () => {
       // import('app3/handlers'),
     ]);
 
-    console.log(result);
-
     const remoteHandlers = result
       .map(
         (item: any) =>
@@ -23,8 +21,6 @@ export const remoteMocks = (async () => {
       )
       .flat(1)
       .filter(Boolean);
-
-    console.log(remoteHandlers);
 
     return setupWorker(...handlers, ...remoteHandlers);
   } catch {
