@@ -1,3 +1,5 @@
+import { ComponentType } from 'react';
+
 export type Config = {
   microservices: Record<string, string>;
 };
